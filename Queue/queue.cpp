@@ -1,14 +1,13 @@
 #include <iostream>
 using namespace std;
 
-class Simple_queue
+class queue
 {
-    int f, r;
-    int size;
+    int f, r, size;
     int *arr;
 
 public:
-    Simple_queue(int n)
+    queue(int n)
     {
         f = -1;
         r = -1;
@@ -37,7 +36,6 @@ public:
 
     void display_data()
     {
-
         for (int i = f; i <= r; i++)
         {
             cout << arr[i] << endl;
@@ -49,7 +47,7 @@ public:
         if (f >= 0)
         {
             f++;
-            cout << f << " vlaue of " << endl;
+            cout << f << "Value of " << endl;
         }
         else
         {
@@ -62,24 +60,24 @@ int main()
 {
     int n, number;
 
-    cout << "Enter size of array : ";
+    cout << "Enter the size of array : ";
     cin >> n;
-    Simple_queue s1(n);
+    queue s1(n);
     int n1;
 
     do
     {
 
-        cout << "1. insert " << endl;
-        cout << "2. display " << endl;
-        cout << "3. delete " << endl;
+        cout << "1. Insert " << endl;
+        cout << "2. Display " << endl;
+        cout << "3. Delete " << endl;
         cout << "4. Exit " << endl;
         cin >> n1;
         cout << endl;
         switch (n1)
         {
         case 1:
-            cout << "Enter the value : " << endl;
+            cout << "Enter the value : ";
             cin >> number;
 
             cout << endl;
@@ -87,7 +85,7 @@ int main()
             break;
 
         case 2:
-            cout << "for dispaly : " << endl;
+            cout << "For dispaly : ";
             s1.display_data();
             break;
         case 3:
