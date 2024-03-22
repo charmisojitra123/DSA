@@ -38,7 +38,7 @@ public:
     {
         for (int i = f; i <= r; i++)
         {
-            cout << arr[i] << endl;
+            cout << arr[i] << "\t";
         }
     }
 
@@ -68,7 +68,7 @@ int main()
     do
     {
 
-        cout << "1. Insert " << endl;
+        cout << "\n1. Insert " << endl;
         cout << "2. Display " << endl;
         cout << "3. Delete " << endl;
         cout << "4. Exit " << endl;

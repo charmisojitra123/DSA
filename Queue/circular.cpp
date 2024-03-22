@@ -1,13 +1,15 @@
+
 #include <iostream>
 using namespace std;
 
-class queue
+class Circular_queue
 {
-    int f, r, size;
+    int f, r;
+    int size;
     int *arr;
 
 public:
-    queue(int n)
+    Circular_queue(int n)
     {
         f = -1;
         r = -1;
@@ -23,39 +25,57 @@ public:
             r++;
             arr[r] = data;
         }
-        else if ((r+1)%size >= size-1)
+        else if ((r + 1) % size == f)
         {
-            cout << "array is full ! " << endl;
+            cout << "Queue is full ! \n"
+                 << endl;
         }
         else
         {
-            (r+1)%size-1;
+            r=(r+1)%size;
             arr[r] = data;
         }
     }
 
     void display_data()
     {
-        int i;
-        do 
+        if (f < 0)
         {
-            cout << "Enter the" << endl;
-            cout << arr[i] << endl;
-            (i+1)%size;
+
+            cout << "Queue is Empty ! \n"
+                 << endl;
+          
         }
-        while(i <= r);
+        else{
+            int i;
+
+        for ( i = f; i != r; i = (i + 1) % size)
+        {
+            cout << arr[i] << endl;
+        }
+         cout << arr[i] << endl;
+    }
     }
 
     void delete_data()
     {
-        if (f >= 0)
+        if (f < 0)
         {
-            (f+1)%size;
-            cout << f << "Value of " << endl;
+
+            cout << "Queue is Empty ! \n"
+                 << endl;
+          
+        }
+
+        else if (f == r)
+        {
+            f = r = -1;
         }
         else
         {
-            cout << "Queue is Empty !" << endl;
+            f = (f + 1) % size;
+            cout << "data deleted ! \n"
+                 << endl;
         }
     }
 };
@@ -64,36 +84,36 @@ int main()
 {
     int n, number;
 
-    cout << "Enter the size of array : ";
+    cout << "Enter size of Queue : ";
     cin >> n;
-    queue s1(n);
+    Circular_queue c1(n);
     int n1;
 
     do
     {
 
-        cout << "1. Insert " << endl;
-        cout << "2. Display " << endl;
-        cout << "3. Delete " << endl;
+        cout << "1. insert " << endl;
+        cout << "2. display " << endl;
+        cout << "3. delete " << endl;
         cout << "4. Exit " << endl;
         cin >> n1;
         cout << endl;
         switch (n1)
         {
         case 1:
-            cout << "Enter the value : ";
+            cout << "Enter the value : " << endl;
             cin >> number;
 
             cout << endl;
-            s1.insert_data(number);
+            c1.insert_data(number);
             break;
 
         case 2:
-            cout << "For dispaly : ";
-            s1.display_data();
+            cout << "for dispaly : " << endl;
+            c1.display_data();
             break;
         case 3:
-            s1.delete_data();
+            c1.delete_data();
             break;
         case 4:
             exit(0);
@@ -101,6 +121,6 @@ int main()
         }
 
     } while (1);
-    // s1.displayata();
+    // c1.displayata();
     return 0;
 }
