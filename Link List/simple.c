@@ -54,13 +54,35 @@ void display()
 
 int main()
 {
-    insertEnd(100);
-    insertEnd(200);
-    insertEnd(300);
-    insertEnd(400);
-    insertEnd(500);
-    insertEnd(600);
-    display();
+    int choice,n;
+    printf("1. Insert \n2.Display \n3.Exit\n");
+    
+    do{
+        printf("Select your choice :- ");
+        scanf("%d", &choice);
+
+    switch(choice)
+    {
+        case 1:
+            printf("Enter the element :- ");
+            scanf("%d", &n);
+            insertEnd(n);
+            break;
+
+        case 2:
+            display();
+            break;
+
+        case 3:          
+            break;
+
+        default:
+            printf("Invalid choice\n");
+    }
+    }
+    while(choice != 3);
+
+ 
 
     return 0;
 }
