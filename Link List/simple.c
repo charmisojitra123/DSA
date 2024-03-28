@@ -33,6 +33,68 @@ void insertEnd(int val)
     } 
 }
 
+void insertFirst(int val)
+{
+    struct node *temp = malloc(sizeof(struct node));
+    temp->data = val;
+    temp->next = NULL;
+
+    if(head == NULL)
+    {
+        head = temp;
+        return;
+    }
+    else
+    {
+        temp->next = head;
+        head = temp;
+            
+        return;
+    } 
+}
+
+void deleteEnd()
+{
+    struct node *ptr = head;
+    struct node *p;
+
+    if(head == NULL)
+    {
+        printf("List is already empty.....\n");
+    }
+    else if(head->next == NULL)
+    {
+        head = NULL;
+        free(ptr);
+        return;
+    }
+
+    while(ptr->next != NULL)
+    {
+        p = ptr;
+        ptr = ptr->next;
+    }
+    p->next = NULL;
+    free(ptr);
+    return;
+}
+
+void deleteFirst()
+{
+    struct node *ptr = head;
+
+    if(head == NULL)
+    {
+        printf("List is already empty.....\n");
+    }
+    else 
+    {
+        head = head->next;
+        free(ptr);
+        return;
+    }
+}
+
 void display()
 {
     struct node *ptr = head;
@@ -45,7 +107,7 @@ void display()
     {
         while(ptr != NULL)
         {
-            printf("%d\n", ptr->data);
+            printf("%d\t", ptr->data);
             ptr = ptr->next;
         }
     }
@@ -55,9 +117,10 @@ void display()
 int main()
 {
     int choice,n;
-    printf("1. Insert \n2.Display \n3.Exit\n");
-    
     do{
+
+        printf("1. Insert \n2. Display \n3. Delete \n4. Insert First \n5. Delete First\n0. Exit\n");
+    
         printf("Select your choice :- ");
         scanf("%d", &choice);
 
@@ -73,14 +136,29 @@ int main()
             display();
             break;
 
-        case 3:          
+        case 3:
+            deleteEnd();
+            break;
+        
+        case 4:
+            printf("Enter the element :- ");
+            scanf("%d", &n);
+            insertFirst(n);
+            break;
+
+        case 5:
+            deleteFirst();
+            break;
+
+        case 0:   
+            exit(0);       
             break;
 
         default:
             printf("Invalid choice\n");
     }
     }
-    while(choice != 3);
+    while(choice != 6);
     
     return 0;
 }
