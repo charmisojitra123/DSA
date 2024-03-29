@@ -53,6 +53,33 @@ void insertFirst(int val)
     } 
 }
 
+void insertMid(int val,int pos)
+{
+    struct node *ptr = head;
+    struct node *temp = malloc(sizeof(struct node));
+    struct node *p;
+    temp->data = val;
+
+    if(head == NULL)
+    {
+        head = temp;
+        return;
+    }
+    else
+    {
+        while(ptr->data != pos)
+        {
+            p = ptr;
+            ptr = ptr->next;
+        }           
+         
+            p->next = temp;
+            temp->next = ptr;
+            
+            return;
+    } 
+}
+
 void deleteEnd()
 {
     struct node *ptr = head;
@@ -95,6 +122,27 @@ void deleteFirst()
     }
 }
 
+void deleteMid(int pos)
+{
+    struct node *ptr = head;
+    struct node *p;
+
+    if(head == NULL)
+    {
+        printf("List is already empty.....\n");
+    }
+
+    while(ptr->data != pos)
+    {
+        p = ptr;
+        ptr = ptr->next;
+    }
+    
+    p->next = ptr->next;
+    free(ptr);
+    return;
+}
+
 void display()
 {
     struct node *ptr = head;
@@ -116,10 +164,10 @@ void display()
 
 int main()
 {
-    int choice,n;
+    int choice,n,pos;
     do{
 
-        printf("1. Insert \n2. Display \n3. Delete \n4. Insert First \n5. Delete First\n0. Exit\n");
+        printf("1. Insert \n2. Display \n3. Delete \n4. Insert First \n5. Delete First\n6. Insert Mid\n7. Delete Mid\n0. Exit\n");
     
         printf("Select your choice :- ");
         scanf("%d", &choice);
@@ -150,6 +198,22 @@ int main()
             deleteFirst();
             break;
 
+        case 6:
+            printf("Enter the element :- ");
+            scanf("%d", &n);
+            printf("Enter the position of element :- ");
+            scanf("%d", &pos);
+            insertMid(n,pos);
+            display();
+            break;
+
+        case 7:
+            printf("Enter the position of element :- ");
+            scanf("%d", &pos);
+            deleteMid(pos);
+            display();
+            break;
+
         case 0:   
             exit(0);       
             break;
@@ -158,7 +222,7 @@ int main()
             printf("Invalid choice\n");
     }
     }
-    while(choice != 6);
+    while(choice != 50);
     
     return 0;
 }
