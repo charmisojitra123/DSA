@@ -5,6 +5,7 @@ struct node
 {
     int data;
     struct node *next;
+    struct node *prev;
 };
 
 struct node *head = NULL;
@@ -15,48 +16,45 @@ void insertEnd(int val)
     struct node *temp = malloc(sizeof(struct node));
     temp->data = val;
     temp->next = NULL;
+    temp->prev = NULL;
 
     if(head == NULL)
     {
         head = temp;
-        temp->next=head;
         return;
     }
     else
     {
-        while(ptr->next != head)
+        while(ptr->next != NULL)
         {
             ptr = ptr->next;
         }            
             ptr->next = temp;
-           temp->next = head;
-        
+            temp->prev = ptr;
+            
+            return;
     } 
 }
 
 void insertFirst(int val)
 {
-   struct node *ptr = head;
     struct node *temp = malloc(sizeof(struct node));
     temp->data = val;
     temp->next = NULL;
+    temp->prev = NULL;
 
     if(head == NULL)
     {
         head = temp;
-        temp->next=head;
         return;
     }
     else
     {
-        while(ptr->next != head)
-        {
-            ptr = ptr->next;
-        }            
-            ptr->next = temp;
-            temp->next = head;
-            head = temp;
-        
+        temp->next = head;
+        head->prev = temp;
+        head = temp;
+            
+        return;
     } 
 }
 
@@ -81,7 +79,9 @@ void insertMid(int val,int pos)
         }           
          
             p->next = temp;
+            temp->prev = p;
             temp->next = ptr;
+            ptr->prev = temp;
             
             return;
     } 
@@ -96,23 +96,26 @@ void deleteEnd()
     {
         printf("List is already empty.....\n");
     }
-    else 
+    else if(head->next == NULL)
     {
-    while(ptr->next != head)
+        head = NULL;
+        free(ptr);
+        return;
+    }
+
+    while(ptr->next != NULL)
     {
         p = ptr;
         ptr = ptr->next;
     }
-     p->next = ptr->next;
+    p->next = NULL;
     free(ptr);
     return;
-    }
 }
 
 void deleteFirst()
 {
     struct node *ptr = head;
-    struct node *p = head;
 
     if(head == NULL)
     {
@@ -120,14 +123,9 @@ void deleteFirst()
     }
     else 
     {
-        while(ptr->next != head)
-        {
-            ptr = ptr->next;
-        }
-
         head = head->next;
-        ptr->next = head;
-        free(p);
+        head->prev = NULL;
+        free(ptr);
         return;
     }
 }
@@ -136,6 +134,7 @@ void deleteMid(int pos)
 {
     struct node *ptr = head;
     struct node *p;
+    struct node *a;
 
     if(head == NULL)
     {
@@ -149,6 +148,8 @@ void deleteMid(int pos)
     }
     
     p->next = ptr->next;
+    a = ptr->next;
+    a->prev = p;
     free(ptr);
     return;
 }
@@ -158,17 +159,16 @@ void display()
     struct node *ptr = head;
     if(head == NULL)
     {
-        printf("List is empty....\n");
+        printf("List is empty\n");
         return;
     }
     else
     {
-        while(ptr->next != head)
+        while(ptr != NULL)
         {
             printf("%d\t", ptr->data);
             ptr = ptr->next;
         }
-        printf("%d\t", ptr->data);
     }
     printf("\n");
 }
@@ -212,7 +212,6 @@ int main()
         case 6:
             printf("Enter the element :- ");
             scanf("%d", &n);
-            display();
             printf("Enter the position of element :- ");
             scanf("%d", &pos);
             insertMid(n,pos);
@@ -234,7 +233,7 @@ int main()
             printf("Invalid choice\n");
     }
     }
-    while(choice != 9);
+    while(choice != 50);
     
     return 0;
 }
